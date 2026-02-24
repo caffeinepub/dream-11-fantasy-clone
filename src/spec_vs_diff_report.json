@@ -1,0 +1,84 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-24T07:32:44.408Z",
+  "summary": "The implementation covers most core requirements including Internet Identity authentication, player database, team creation, contest system, wallet management, and UI theming. However, critical features like the points scoring system (REQ-6), leaderboard rankings (REQ-7), and Stripe payment integration (REQ-8) are either incomplete or missing from the diff.",
+  "missing_requirements": [
+    {
+      "id": "REQ-6",
+      "requirement": "Implement points scoring system that calculates fantasy team scores based on player performance metrics (goals, assists, clean sheets, etc.)",
+      "reason": "No evidence of scoring logic, performance metrics tracking, or point calculation implementation. Backend lacks fields for goals, assists, clean sheets, or any scoring mechanisms.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Build leaderboard display showing contest rankings with user teams sorted by total points",
+      "reason": "Leaderboard page exists (frontend/src/pages/Leaderboard.tsx) but is not shown in diff. Cannot verify if rankings, total points, current user highlighting, or sorting by scores are implemented.",
+      "evidence": []
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Integrate Stripe payment system for contest entry fee payments",
+      "reason": "Stripe configuration setup exists but no actual payment flow for contest entry fees. No checkout session creation for contest entries, payment confirmation logic, or failed payment handling specific to contests.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/StripePaymentSetup.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Admin-only player management (addPlayer function requires admin permission)",
+      "reason": "BuildRequest does not specify admin roles or admin-only features. It mentions player database creation but not administrative access controls for player management.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Payment success and failure dedicated pages with routing",
+      "reason": "BuildRequest does not request separate pages for payment outcomes. While payment handling is required, specific success/failure page routes were not specified.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/PaymentSuccess.tsx",
+        "frontend/src/pages/PaymentFailure.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.75,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AuthGuard.tsx",
+    "frontend/src/components/BudgetTracker.tsx",
+    "frontend/src/components/ContestCard.tsx",
+    "frontend/src/components/Layout.tsx",
+    "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/PlayerCard.tsx",
+    "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/components/StripePaymentSetup.tsx",
+    "frontend/src/components/TeamFormation.tsx",
+    "frontend/src/components/WalletBalance.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCreateCheckoutSession.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/Contests.tsx",
+    "frontend/src/pages/CreateTeam.tsx",
+    "frontend/src/pages/Home.tsx",
+    "frontend/src/pages/Leaderboard.tsx",
+    "frontend/src/pages/PaymentFailure.tsx",
+    "frontend/src/pages/PaymentSuccess.tsx",
+    "frontend/src/pages/Wallet.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

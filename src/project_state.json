@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Fantasy sports platform similar to Dream11, including website and mobile app for creating fantasy teams and competing in contests",
+  "architectural_notes": [
+    "Multi-platform: web and mobile app required",
+    "Real-time data integration needed for live match updates",
+    "Scalable backend to handle concurrent users during live matches",
+    "Secure payment gateway integration required"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Fantasy sports hero banner with dynamic athletes and stadium atmosphere (hero-banner.dim_1200x400.png)\n- Trophy icon for contest winners in metallic gold style (trophy-icon.dim_128x128.png)\n- Player card placeholder silhouette for athlete profiles (player-placeholder.dim_200x200.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-user-registration-and-authentication-system-allowing-users-to-sign-up-and-log-in-securely-using-internet-identity",
+      "title": "Implement user registration and authentication system allowing users to sign up and log in securely using Internet Identity",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-fantasy-team-creation-interface-where-users-can-select-players-from-different-positions-within-a-budget-constraint",
+      "title": "Build fantasy team creation interface where users can select players from different positions within a budget constraint",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-contest-league-system-allowing-users-to-join-competitions-with-entry-fees-and-prize-pools",
+      "title": "Create contest/league system allowing users to join competitions with entry fees and prize pools",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-leaderboard-display-showing-contest-rankings-with-user-teams-sorted-by-total-points",
+      "title": "Build leaderboard display showing contest rankings with user teams sorted by total points",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-stripe-payment-system-for-contest-entry-fee-payments",
+      "title": "Integrate Stripe payment system for contest entry fee payments",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-wallet-system-for-managing-user-balance-tracking-deposits-entry-fees-and-winnings",
+      "title": "Implement wallet system for managing user balance, tracking deposits, entry fees, and winnings",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-and-apply-a-modern-sporty-visual-theme-with-vibrant-colors-greens-and-oranges-bold-typography-and-card-based-layouts-suitable-for-a-competitive-fantasy-sports-platform",
+      "title": "Design and apply a modern, sporty visual theme with vibrant colors (greens and oranges), bold typography, and card-based layouts suitable for a competitive fantasy sports platform",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "User registration and authentication system",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Fantasy team creation with player selection",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Contest/league system for users to compete",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Points scoring system based on real match performance",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Leaderboard and rankings display",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Payment integration for contest entry fees",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Wallet system for managing winnings and deposits",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create a player database storing athlete information including name, team, position, current form, and base price",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Implement backend logic to save and retrieve user fantasy teams with validation for budget limits and position constraints",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Implement points scoring system that calculates fantasy team scores based on player performance metrics (goals, assists, clean sheets, etc.)",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Dream 11 Fantasy Clone",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

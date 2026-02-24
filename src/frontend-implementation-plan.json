@@ -1,0 +1,289 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fantasy Sports League Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement user authentication UI with Internet Identity integration and profile setup",
+      "acceptanceCriteria": [
+        "Users can register new accounts via Internet Identity",
+        "Users can log in and log out successfully",
+        "Authentication state persists across page refreshes",
+        "Unauthenticated users are redirected to login"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create login/logout button component using useInternetIdentity hook with authentication state management and query cache clearing on logout"
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create modal component that prompts new users to enter their name on first login, using getCallerUserProfile to check if profile exists and saveCallerUserProfile to save it. Implement proper loading state handling to prevent modal flash as described in authorization component usage"
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create hook that fetches current user profile with proper actor dependency handling to prevent modal flash, returning isLoading, isFetched, and data states"
+        },
+        {
+          "path": "frontend/src/hooks/useSaveCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create mutation hook for saving user profile using saveCallerUserProfile backend method"
+        },
+        {
+          "path": "frontend/src/components/AuthGuard.tsx",
+          "operation": "create",
+          "description": "Create authentication guard component that checks login status, shows ProfileSetupModal for new users, and redirects unauthenticated users to login"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap main application routes with AuthGuard component to enforce authentication and integrate LoginButton in the header/navigation area"
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build fantasy team creation interface with player selection, position constraints, and budget tracking",
+      "acceptanceCriteria": [
+        "Users can browse available players filtered by position",
+        "Team formation shows selected players by position (e.g., 1 goalkeeper, 4 defenders, 3 midfielders, 3 forwards)",
+        "Running budget total updates as players are added or removed",
+        "Users cannot exceed budget limit",
+        "Save team button stores the fantasy team"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useGetAllPlayers.ts",
+          "operation": "create",
+          "description": "Create query hook that fetches all players from backend using getAllPlayers method"
+        },
+        {
+          "path": "frontend/src/hooks/useCreateTeam.ts",
+          "operation": "create",
+          "description": "Create mutation hook for creating fantasy team using createTeam backend method with player IDs"
+        },
+        {
+          "path": "frontend/src/components/PlayerCard.tsx",
+          "operation": "create",
+          "description": "Create player card component displaying player name, team, position, form, price, and add/remove action button with card-based layout. Use the generated player placeholder image at frontend/public/assets/generated/player-placeholder.dim_200x200.png as fallback avatar"
+        },
+        {
+          "path": "frontend/src/components/TeamFormation.tsx",
+          "operation": "create",
+          "description": "Create team formation display component showing selected players organized by position (1 goalkeeper, 4 defenders, 3 midfielders, 3 forwards) with position labels and empty slots"
+        },
+        {
+          "path": "frontend/src/components/BudgetTracker.tsx",
+          "operation": "create",
+          "description": "Create budget tracking component displaying total spent, remaining budget, and budget limit with visual progress indicator"
+        },
+        {
+          "path": "frontend/src/pages/CreateTeam.tsx",
+          "operation": "create",
+          "description": "Create team creation page integrating PlayerCard components with position filtering, TeamFormation display, BudgetTracker, and save team button. Implement client-side validation preventing budget overflow and enforcing position requirements before calling useCreateTeam"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /create-team path pointing to CreateTeam page and include navigation link in main menu"
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Create contest/league system UI for viewing and joining competitions",
+      "acceptanceCriteria": [
+        "Users can view available contests with entry fee and prize details",
+        "Users can join contests with their fantasy team",
+        "Contest capacity limits are enforced",
+        "Contest status shows participant count"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useGetAllContests.ts",
+          "operation": "create",
+          "description": "Create query hook that fetches all contests from backend using getAllContests method"
+        },
+        {
+          "path": "frontend/src/hooks/useJoinContest.ts",
+          "operation": "create",
+          "description": "Create mutation hook for joining contest using joinContest backend method with contestId parameter"
+        },
+        {
+          "path": "frontend/src/hooks/useGetMyTeams.ts",
+          "operation": "create",
+          "description": "Create query hook that fetches user's fantasy teams using getMyTeams backend method"
+        },
+        {
+          "path": "frontend/src/components/ContestCard.tsx",
+          "operation": "create",
+          "description": "Create contest card component displaying contest name, entry fee, prize pool, participant count, and join button with card-based layout. Use the generated trophy icon at frontend/public/assets/generated/trophy-icon.dim_128x128.png for visual appeal"
+        },
+        {
+          "path": "frontend/src/pages/Contests.tsx",
+          "operation": "create",
+          "description": "Create contests page listing all available contests using ContestCard components, with team selection dropdown for joining contests and error handling for capacity limits"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /contests path pointing to Contests page and include navigation link in main menu"
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Build leaderboard display showing contest rankings sorted by points",
+      "acceptanceCriteria": [
+        "Leaderboard shows rank, username, team name, and total points",
+        "Current user's position is highlighted",
+        "Rankings update based on latest scores",
+        "Top performers are prominently displayed"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LeaderboardTable.tsx",
+          "operation": "create",
+          "description": "Create leaderboard table component displaying rank, username, team name, and total points in tabular format with highlighting for current user's position and special styling for top 3 performers"
+        },
+        {
+          "path": "frontend/src/pages/Leaderboard.tsx",
+          "operation": "create",
+          "description": "Create leaderboard page integrating LeaderboardTable component with contest selection dropdown to view rankings for specific contests"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /leaderboard path pointing to Leaderboard page and include navigation link in main menu"
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Integrate Stripe payment UI for contest entry fee payments",
+      "acceptanceCriteria": [
+        "Users can pay entry fees via Stripe checkout",
+        "Payment confirmation triggers contest entry",
+        "Failed payments prevent contest entry",
+        "Payment records are stored with user ID and contest ID"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/StripePaymentSetup.tsx",
+          "operation": "create",
+          "description": "Use the stripe component to implement payment configuration check using isStripeConfigured and admin panel for setStripeConfiguration with secret key and allowed countries input. Verify the component's usage instructions before implementing"
+        },
+        {
+          "path": "frontend/src/hooks/useCreateCheckoutSession.ts",
+          "operation": "create",
+          "description": "Use the stripe component to implement checkout session creation hook with JSON parsing of createCheckoutSession result, validation of session.url, and ShoppingItem array parameter. Verify the component's usage instructions before implementing"
+        },
+        {
+          "path": "frontend/src/components/PaymentButton.tsx",
+          "operation": "create",
+          "description": "Use the stripe component to implement payment button component that triggers useCreateCheckoutSession and redirects to Stripe checkout URL using window.location.href (not router navigation). Include error handling for missing session.url. Verify the component's usage instructions before implementing"
+        },
+        {
+          "path": "frontend/src/pages/PaymentSuccess.tsx",
+          "operation": "create",
+          "description": "Use the stripe component to create payment success page showing confirmation message and contest entry completion status. Verify the component's usage instructions before implementing"
+        },
+        {
+          "path": "frontend/src/pages/PaymentFailure.tsx",
+          "operation": "create",
+          "description": "Use the stripe component to create payment failure page showing error message and retry options. Verify the component's usage instructions before implementing"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /payment-success and /payment-failure paths pointing to PaymentSuccess and PaymentFailure pages respectively. Integrate StripePaymentSetup component for admin configuration access"
+        },
+        {
+          "path": "frontend/src/pages/Contests.tsx",
+          "operation": "modify",
+          "description": "Integrate PaymentButton component into ContestCard for paid contest entry, passing entry fee as ShoppingItem to initiate Stripe checkout flow"
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Implement wallet UI for managing balance, transactions, and fund deposits",
+      "acceptanceCriteria": [
+        "Each user has a wallet with current balance",
+        "Wallet displays transaction history (deposits, entry fees, winnings)",
+        "Users can add funds to wallet via Stripe",
+        "Contest entry deducts from wallet balance",
+        "Winnings are automatically credited to wallet"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useGetBalance.ts",
+          "operation": "create",
+          "description": "Create query hook that fetches user wallet balance using getBalance backend method"
+        },
+        {
+          "path": "frontend/src/hooks/useDepositFunds.ts",
+          "operation": "create",
+          "description": "Create mutation hook for depositing funds using depositFunds backend method"
+        },
+        {
+          "path": "frontend/src/components/WalletBalance.tsx",
+          "operation": "create",
+          "description": "Create wallet balance display component showing current balance with formatted currency display and visual styling"
+        },
+        {
+          "path": "frontend/src/components/DepositFundsButton.tsx",
+          "operation": "create",
+          "description": "Create deposit funds button component that triggers Stripe checkout for wallet top-up using PaymentButton with deposit amount as ShoppingItem"
+        },
+        {
+          "path": "frontend/src/pages/Wallet.tsx",
+          "operation": "create",
+          "description": "Create wallet page integrating WalletBalance and DepositFundsButton components with transaction history display showing deposits, entry fees, and winnings"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /wallet path pointing to Wallet page and include navigation link in main menu"
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Apply modern sporty visual theme with vibrant colors, bold typography, and card layouts",
+      "acceptanceCriteria": [
+        "Color scheme uses energetic sports-themed colors",
+        "Typography is bold and readable for data-heavy displays",
+        "Layout uses cards for players, contests, and leaderboards",
+        "Design conveys competition and excitement",
+        "Visual hierarchy emphasizes key actions and information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add custom CSS variables for sports theme colors (vibrant greens and oranges), bold typography settings, and card styling base classes"
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with custom color palette for fantasy sports (primary green, accent orange, success, warning colors), bold font weights, and sporty font family"
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create main layout component with sporty header including navigation menu and LoginButton, dynamic background using the generated hero banner at frontend/public/assets/generated/hero-banner.dim_1200x400.png, and footer with themed styling"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap all routes with Layout component to apply consistent sporty theme across the application"
+        }
+      ]
+    }
+  ]
+}

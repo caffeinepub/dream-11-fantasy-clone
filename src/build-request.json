@@ -1,0 +1,192 @@
+{
+  "kind": "build_request",
+  "title": "Create fantasy sports platform with team management and contests",
+  "projectName": "Fantasy Sports League",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement user registration and authentication system allowing users to sign up and log in securely using Internet Identity",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can register new accounts via Internet Identity",
+        "Users can log in and log out successfully",
+        "Authentication state persists across page refreshes",
+        "Unauthenticated users are redirected to login"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create a player database storing athlete information including name, team, position, current form, and base price",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores player records with all required attributes",
+        "Players can be retrieved by position or team",
+        "Player data includes realistic sports attributes"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build fantasy team creation interface where users can select players from different positions within a budget constraint",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can browse available players filtered by position",
+        "Team formation shows selected players by position (e.g., 1 goalkeeper, 4 defenders, 3 midfielders, 3 forwards)",
+        "Running budget total updates as players are added or removed",
+        "Users cannot exceed budget limit",
+        "Save team button stores the fantasy team"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement backend logic to save and retrieve user fantasy teams with validation for budget limits and position constraints",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Teams are stored with user ID, player IDs, and creation timestamp",
+        "Validation prevents teams exceeding budget",
+        "Validation enforces position requirements",
+        "Users can retrieve their saved teams"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Create contest/league system allowing users to join competitions with entry fees and prize pools",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can view available contests with entry fee and prize details",
+        "Users can join contests with their fantasy team",
+        "Contest capacity limits are enforced",
+        "Contest status shows participant count"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement points scoring system that calculates fantasy team scores based on player performance metrics (goals, assists, clean sheets, etc.)",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Points are calculated based on predefined scoring rules",
+        "Different actions award different points (e.g., goal = 10 points, assist = 5 points)",
+        "Team total score aggregates all player scores",
+        "Scores update when match results are recorded"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Build leaderboard display showing contest rankings with user teams sorted by total points",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Leaderboard shows rank, username, team name, and total points",
+        "Current user's position is highlighted",
+        "Rankings update based on latest scores",
+        "Top performers are prominently displayed"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Integrate Stripe payment system for contest entry fee payments",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can pay entry fees via Stripe checkout",
+        "Payment confirmation triggers contest entry",
+        "Failed payments prevent contest entry",
+        "Payment records are stored with user ID and contest ID"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Implement wallet system for managing user balance, tracking deposits, entry fees, and winnings",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each user has a wallet with current balance",
+        "Wallet displays transaction history (deposits, entry fees, winnings)",
+        "Users can add funds to wallet via Stripe",
+        "Contest entry deducts from wallet balance",
+        "Winnings are automatically credited to wallet"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Design and apply a modern, sporty visual theme with vibrant colors (greens and oranges), bold typography, and card-based layouts suitable for a competitive fantasy sports platform",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Color scheme uses energetic sports-themed colors",
+        "Typography is bold and readable for data-heavy displays",
+        "Layout uses cards for players, contests, and leaderboards",
+        "Design conveys competition and excitement",
+        "Visual hierarchy emphasizes key actions and information"
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Internet Identity for authentication, not third-party OAuth providers",
+    "Payment processing must use Stripe integration only",
+    "All user data and game state must be stored in the Motoko backend",
+    "No real-time WebSocket features for live score updates"
+  ],
+  "nonGoals": [
+    "Mobile native app development (focus on responsive web app)",
+    "Integration with actual sports APIs for live match data",
+    "Social media sharing or integration",
+    "Real-time chat between users",
+    "Video streaming of matches",
+    "Multi-sport support (focus on single sport initially)"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Fantasy sports hero banner with dynamic athletes and stadium atmosphere (hero-banner.dim_1200x400.png)",
+      "Trophy icon for contest winners in metallic gold style (trophy-icon.dim_128x128.png)",
+      "Player card placeholder silhouette for athlete profiles (player-placeholder.dim_200x200.png)"
+    ],
+    "edits": []
+  }
+}

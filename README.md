@@ -1,2 +1,3 @@
-# dream-11-fantasy-clone
-Exported from Caffeine project: Dream 11 Fantasy Clone
+## Dream 11 Fantasy Clone
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`
